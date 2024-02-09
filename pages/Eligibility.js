@@ -63,12 +63,12 @@ const Eligibility = () => {
         {/* Purpose Field - Replace with Picker */}
         <View className="mb-4">
           <Text className="text-lg mb-2 font-semibold">Purpose</Text>
-          <CustomDropdown
+          {/* <CustomDropdown
             data={purposes}
             selectedValue={selectedPurpose}
             onSelect={(value) => setSelectedPurpose(value)}
             placeholder="Select purpose"
-          />
+          /> */}
         </View>
 
         {/* Your Income Field - Replace with Picker */}
