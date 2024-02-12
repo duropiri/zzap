@@ -6,7 +6,11 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Header from "./components/Header";
-import Eligibility from "./pages/Eligibility";
+import EligibilityForm from "./pages/Eligibility";
+import EligibilitySuccess from "./pages/EligibilitySuccess";
+import ClientInfo from "./pages/ClientInfo";
+import CreateEmail from "./pages/CreateEmail";
+import Loans from "./pages/Loans";
 
 const Stack = createNativeStackNavigator();
 
@@ -35,7 +39,27 @@ export default function App() {
           />
           <Stack.Screen
             name="Eligibility"
-            component={Eligibility}
+            component={EligibilityForm}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="EligibilitySuccess"
+            component={EligibilitySuccess}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="ClientInfo"
+            component={ClientInfo}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="CreateEmail"
+            component={CreateEmail}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="Loans"
+            component={Loans}
             options={{ headerShown: false }}
           />
         </Stack.Navigator>

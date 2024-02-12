@@ -1,42 +1,54 @@
-// CustomDropdown.js
-import React from 'react';
-import Dropdown from 'react-native-element-dropdown';
+import React, { useState } from 'react';
+import { View, Text, TouchableOpacity, FlatList, ScrollView } from 'react-native';
 
 const CustomDropdown = ({ data, onSelect, selectedValue, placeholder }) => {
+  const [visible, setVisible] = useState(false);
+
+  const handleSelect = (value) => {
+    onSelect(value);
+    setVisible(false);
+  };
+
+  const renderDropdownArrow = () => {
+    return visible ? (
+      <Text className="text-black ml-2">▲</Text>
+    ) : (
+      <Text className="text-black ml-2">▼</Text>
+    );
+  }
+
   return (
-    <Dropdown
-      style={dropdownStyle}
-      data={data}
-      onSelect={onSelect}
-      value={selectedValue}
-      labelField="label"
-      valueField="value"
-      placeholder={placeholder}
-      placeholderStyle={placeholderStyle}
-      selectedTextStyle={selectedTextStyle}
-      // Add more props and styling as needed
-    />
+    <View className="w-full">
+      <TouchableOpacity
+        onPress={() => setVisible(!visible)}
+        className="border border-gray-300 bg-white px-3 py-2 rounded-md flex-row justify-between items-center min-h-[48px]"
+      >
+        <Text className={`${selectedValue ? 'text-black' : 'text-gray-400'}`}>
+          {selectedValue || placeholder}
+        </Text>
+        {renderDropdownArrow()}
+      </TouchableOpacity>
+
+      {visible && (
+        <View className="mt-1 w-full">
+          <ScrollView
+            className="bg-white border border-t-0 border-gray-300 rounded-md shadow-lg max-h-60"
+            nestedScrollEnabled={true}
+          >
+            {data.map((item) => (
+              <TouchableOpacity
+                key={item.value}
+                className="px-3 py-2 hover:bg-gray-100"
+                onPress={() => handleSelect(item.value)}
+              >
+                <Text className="text-black">{item.label}</Text>
+              </TouchableOpacity>
+            ))}
+          </ScrollView>
+        </View>
+      )}
+    </View>
   );
-};
-
-const dropdownStyle = {
-  height: 50,
-  borderColor: 'gray',
-  borderWidth: 1,
-  borderRadius: 4,
-  paddingHorizontal: 8,
-  backgroundColor: 'white',
-  // Apply any additional styling as needed
-};
-
-const placeholderStyle = {
-  color: 'gray',
-  // Apply any additional styling as needed
-};
-
-const selectedTextStyle = {
-  color: 'black',
-  // Apply any additional styling as needed
 };
 
 export default CustomDropdown;
