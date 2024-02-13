@@ -20,14 +20,14 @@ const Loans = ({ navigation }) => {
       category: "Education",
     },
     {
-        id: "2",
-        type: "Business loan",
-        amount: "$22,000",
-        amountDue: "$200.00",
-        rate: "5%",
-        dueDate: "10 Nov 2022",
-        category: "Career",
-      },
+      id: "2",
+      type: "Business loan",
+      amount: "$22,000",
+      amountDue: "$200.00",
+      rate: "5%",
+      dueDate: "10 Nov 2022",
+      category: "Career",
+    },
     // Add more loans here
   ]);
 
@@ -43,7 +43,7 @@ const Loans = ({ navigation }) => {
   };
   return (
     <View className="flex-1 bg-white justify-between">
-      <View className="p-4 w-full h-full">
+      <View className="p-4 w-full ">
         {/* Display loans if available */}
         {loans.length > 0 ? (
           <>
@@ -52,8 +52,18 @@ const Loans = ({ navigation }) => {
               keyExtractor={(item) => item.id}
               renderItem={({ item }) => <LoanCard loan={item} />}
             />
+
+            <View className="items-right w-full my-2">
+              <TouchableOpacity
+                onPress={() => handlePress("ViewAll")}
+              >
+                <Text className="text-[#031556] text-right underline">
+                  View All
+                </Text>
+              </TouchableOpacity>
+            </View>
             {/* Get New Loan Button */}
-            <View className="flex-1 justify-start items-center w-full">
+            <View className="flex-1 justify-start items-center w-full my-2">
               <TouchableOpacity
                 className="bg-[#A761B6] rounded-lg py-2 mb-4 h-12 w-full"
                 onPress={() => handlePress("GetLoan")}
