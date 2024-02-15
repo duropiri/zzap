@@ -8,7 +8,7 @@ import {
 } from "react-native";
 import ProgressBar from "../components/ProgressBar";
 import CustomDropdown from "../components/CustomDropdown";
-import DatePickerPopup from "../components/DatePickerPopup";
+import DatePicker from "../components/DatePicker";
 import moment from "moment";
 
 const ClientInfo = ({ navigation }) => {
@@ -22,28 +22,45 @@ const ClientInfo = ({ navigation }) => {
   const [postalCode, setPostalCode] = useState("");
   const [country, setCountry] = useState("");
   // Add more state hooks for other form fields as needed
-  const [selectedDob, setSelectedDob] = useState();
   const [selectedIncome, setSelectedIncome] = useState();
   const [selectedIncomeAmount, setSelectedIncomeAmount] = useState();
   const [selectedExpenses, setSelectedExpenses] = useState();
   const [selectedExpensesAmount, setSelectedExpensesAmount] = useState();
 
   const [isDatePickerVisible, setDatePickerVisible] = useState(false);
-  const [dob, setDob] = useState("");
+  const [date, setDate] = useState(new Date());
+  const [dob, setDob] = useState({
+    day: '',
+    month: '',
+    year: '',
+  });
 
-  // Placeholder data arrays for the pickers
-  const dobDay = [
-    { label: "", value: "" },
-    // ... other options
-  ];
-  const dobMonth = [
-    { label: "", value: "" },
-    // ... other options
-  ];
-  const dobYear = [
-    { label: "", value: "" },
-    // ... other options
-  ];
+  // Handler for changing the date
+  const onDateChange = (selectedDate) => {
+    setDate(selectedDate || date);
+  };
+
+  // Clear date selection
+  const onClear = () => {
+    setDob({
+      day: '',
+      month: '',
+      year: '',
+    });
+    setDatePickerVisible(false);
+  };
+
+  // Confirm and set the date selection
+  const onSet = () => {
+    const newDob = {
+      day: moment(date).format('DD'),
+      month: moment(date).format('MM'),
+      year: moment(date).format('YYYY'),
+    };
+    setDob(newDob);
+    setDatePickerVisible(false);
+  };
+
   const incomeData = [
     { label: "Biweekly", value: "Biweekly" },
     // ... other options
@@ -82,9 +99,55 @@ const ClientInfo = ({ navigation }) => {
     }
   };
 
-  const handleDateConfirm = (selectedDate) => {
-    setDob(moment(selectedDate).format("DD MMM YYYY")); // Format the date as you need
-    setDatePickerVisible(false); // Hide the DatePicker
+  const renderDateOfBirthSection = () => {
+    if (isDatePickerVisible) {
+      return (
+        <DatePicker
+          date={date}
+          onDateChange={onDateChange}
+          onClear={onClear}
+          onSet={onSet}
+        />
+      );
+    } else {
+      return (
+        <View className="flex-row min-h-[48px] w-full">
+          <View className="min-h-[48px] w-1/3">
+            <TouchableOpacity
+              onPress={() => setDatePickerVisible(true)}
+              className="border border-gray-300 bg-white px-3 py-2 rounded-md flex-row justify-between items-center min-h-[48px]"
+            >
+              <Text className={`${dob.day ? "text-black" : "text-gray-400"}`}>
+                {dob.day || ""}
+              </Text>
+              <Text className="text-black ml-2">▼</Text>
+            </TouchableOpacity>
+          </View>
+          <View className="min-h-[48px] w-1/3 pl-2">
+            <TouchableOpacity
+              onPress={() => setDatePickerVisible(true)}
+              className="border border-gray-300 bg-white px-3 py-2 rounded-md flex-row justify-between items-center min-h-[48px]"
+            >
+              <Text className={`${dob.month ? "text-black" : "text-gray-400"}`}>
+                {dob.month || ""}
+              </Text>
+              <Text className="text-black ml-2">▼</Text>
+            </TouchableOpacity>
+          </View>
+          <View className="min-h-[48px] w-1/3 pl-2">
+            <TouchableOpacity
+              onPress={() => setDatePickerVisible(true)}
+              className="border border-gray-300 bg-white px-3 py-2 rounded-md flex-row justify-between items-center min-h-[48px]"
+            >
+              <Text className={`${dob.year ? "text-black" : "text-gray-400"}`}>
+                {dob.year || ""}
+              </Text>
+              <Text className="text-black ml-2">▼</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+      );
+    }
   };
 
   return (
@@ -136,44 +199,9 @@ const ClientInfo = ({ navigation }) => {
           </View>
 
           {/* Date of Birth */}
-          {/* <View className="mb-4">
-            <Text className="text-lg mb-2 font-semibold">Date of Birth</Text>
-            <View className="flex-row min-h-[48px] w-full">
-              <View className="min-h-[48px] w-1/3">
-                <CustomDropdown
-                  data={dobDay}
-                  selectedValue={selectedDob}
-                  onSelect={setSelectedDob}
-                  placeholder=""
-                />
-              </View>
-              <View className="min-h-[48px] w-1/3 pl-2">
-                <CustomDropdown
-                  data={dobMonth}
-                  selectedValue={selectedDob}
-                  onSelect={setSelectedDob}
-                  placeholder=""
-                />
-              </View>
-              <View className="min-h-[48px] w-1/3 pl-2">
-                <CustomDropdown
-                  data={dobYear}
-                  selectedValue={selectedDob}
-                  onSelect={setSelectedDob}
-                  placeholder=""
-                />
-              </View>
-            </View>
-          </View> */}
-          {/* Date of Birth - Triggering the DatePickerPopup */}
           <View className="mb-4">
             <Text className="text-lg mb-2 font-semibold">Date of Birth</Text>
-            <TouchableOpacity
-              className="border border-gray-300 p-2 rounded-md h-12 justify-center"
-              onPress={() => setDatePickerVisible(true)}
-            >
-              <Text className="text-black">{dob || "Select date"}</Text>
-            </TouchableOpacity>
+            {renderDateOfBirthSection()}
           </View>
 
           {/* phone number field */}
@@ -291,11 +319,11 @@ const ClientInfo = ({ navigation }) => {
         </View>
 
         {/* DatePickerPopup */}
-        <DatePickerPopup
+        {/* <DatePickerPopup
           visible={isDatePickerVisible}
           onConfirm={handleDateConfirm}
           onCancel={() => setDatePickerVisible(false)}
-        />
+        /> */}
       </View>
     </ScrollView>
   );

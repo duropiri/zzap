@@ -7,6 +7,8 @@ import {
   FlatList,
 } from "react-native";
 import LoanCard from "../components/cards/LoanCard"; // Assuming you have a LoanCard component
+import DoughnutChart from "../components/charts/DoughnutChart";
+import Legend from "../components/charts/Legend";
 
 const Loans = ({ navigation }) => {
   const [loans, setLoans] = useState([
@@ -31,6 +33,22 @@ const Loans = ({ navigation }) => {
     // Add more loans here
   ]);
 
+  // Assume this is your loans data that will be used to create the doughnut chart
+  const chartData = [
+    {
+      key: "business-loan",
+      name: "Business loan",
+      amount: "30", // This would be calculated based on the loans data
+      svg: { fill: "#C69CCF" },
+    },
+    {
+      key: "school-loan",
+      name: "School loan",
+      amount: "70", // This would be calculated based on the loans data
+      svg: { fill: "#FF734766" },
+    },
+  ];
+
   const handlePress = (buttonName) => {
     // You can determine which button was pressed by the argument passed
     switch (buttonName) {
@@ -43,10 +61,10 @@ const Loans = ({ navigation }) => {
   };
   return (
     <View className="flex-1 bg-white justify-between">
-      <View className="p-4 w-full ">
+      <ScrollView className="p-4 w-full">
         {/* Display loans if available */}
         {loans.length > 0 ? (
-          <>
+          <View>
             <FlatList
               data={loans}
               keyExtractor={(item) => item.id}
@@ -54,9 +72,7 @@ const Loans = ({ navigation }) => {
             />
 
             <View className="items-right w-full my-2">
-              <TouchableOpacity
-                onPress={() => handlePress("ViewAll")}
-              >
+              <TouchableOpacity onPress={() => handlePress("ViewAll")}>
                 <Text className="text-[#031556] text-right underline">
                   View All
                 </Text>
@@ -73,7 +89,15 @@ const Loans = ({ navigation }) => {
                 </Text>
               </TouchableOpacity>
             </View>
-          </>
+
+            <Text className="text-2xl font-bold text-start">Your Loans</Text>
+            <View className="flex-1 flex-row justify-start items-start w-full my-2">
+              <DoughnutChart data={chartData} />
+              <View className="h-full justify-center pl-6">
+                <Legend data={chartData} />
+              </View>
+            </View>
+          </View>
         ) : (
           // Display 'no loans' message
           <View className="p-4 w-full h-full">
@@ -102,7 +126,7 @@ const Loans = ({ navigation }) => {
             </View>
           </View>
         )}
-      </View>
+      </ScrollView>
     </View>
   );
 };

@@ -29,7 +29,7 @@ const CustomDropdown = ({ data, onSelect, selectedValue, placeholder }) => {
         {renderDropdownArrow()}
       </TouchableOpacity>
 
-      {visible && (
+      {(visible && data) && (
         <View className="mt-1 w-full">
           <ScrollView
             className="bg-white border border-t-0 border-gray-300 rounded-md shadow-lg max-h-60"
