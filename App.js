@@ -11,6 +11,7 @@ import EligibilitySuccess from "./pages/EligibilitySuccess";
 import ClientInfo from "./pages/ClientInfo";
 import CreateEmail from "./pages/CreateEmail";
 import Loans from "./pages/Loans";
+import EligibilityFail from "./pages/EligibilityFail";
 
 const Stack = createNativeStackNavigator();
 
@@ -45,6 +46,11 @@ export default function App() {
           <Stack.Screen
             name="EligibilitySuccess"
             component={EligibilitySuccess}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="EligibilityFail"
+            component={EligibilityFail}
             options={{ headerShown: false }}
           />
           <Stack.Screen

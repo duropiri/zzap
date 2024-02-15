@@ -8,8 +8,10 @@ import {
 } from "react-native";
 import ProgressBar from "../components/ProgressBar";
 import CustomDropdown from "../components/CustomDropdown";
+import DatePickerPopup from "../components/DatePickerPopup";
+import moment from "moment";
 
-const ClientInfo = ({navigation}) => {
+const ClientInfo = ({ navigation }) => {
   // State for form inputs
   const [firstName, setFirstName] = useState("");
   const [middleName, setMiddleName] = useState("");
@@ -26,6 +28,8 @@ const ClientInfo = ({navigation}) => {
   const [selectedExpenses, setSelectedExpenses] = useState();
   const [selectedExpensesAmount, setSelectedExpensesAmount] = useState();
 
+  const [isDatePickerVisible, setDatePickerVisible] = useState(false);
+  const [dob, setDob] = useState("");
 
   // Placeholder data arrays for the pickers
   const dobDay = [
@@ -78,6 +82,10 @@ const ClientInfo = ({navigation}) => {
     }
   };
 
+  const handleDateConfirm = (selectedDate) => {
+    setDob(moment(selectedDate).format("DD MMM YYYY")); // Format the date as you need
+    setDatePickerVisible(false); // Hide the DatePicker
+  };
 
   return (
     <ScrollView className="flex-1 bg-white">
@@ -128,7 +136,7 @@ const ClientInfo = ({navigation}) => {
           </View>
 
           {/* Date of Birth */}
-          <View className="mb-4">
+          {/* <View className="mb-4">
             <Text className="text-lg mb-2 font-semibold">Date of Birth</Text>
             <View className="flex-row min-h-[48px] w-full">
               <View className="min-h-[48px] w-1/3">
@@ -156,6 +164,16 @@ const ClientInfo = ({navigation}) => {
                 />
               </View>
             </View>
+          </View> */}
+          {/* Date of Birth - Triggering the DatePickerPopup */}
+          <View className="mb-4">
+            <Text className="text-lg mb-2 font-semibold">Date of Birth</Text>
+            <TouchableOpacity
+              className="border border-gray-300 p-2 rounded-md h-12 justify-center"
+              onPress={() => setDatePickerVisible(true)}
+            >
+              <Text className="text-black">{dob || "Select date"}</Text>
+            </TouchableOpacity>
           </View>
 
           {/* phone number field */}
@@ -271,6 +289,13 @@ const ClientInfo = ({navigation}) => {
             </Text>
           </TouchableOpacity>
         </View>
+
+        {/* DatePickerPopup */}
+        <DatePickerPopup
+          visible={isDatePickerVisible}
+          onConfirm={handleDateConfirm}
+          onCancel={() => setDatePickerVisible(false)}
+        />
       </View>
     </ScrollView>
   );

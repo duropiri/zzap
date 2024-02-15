@@ -36,7 +36,7 @@ const Loans = ({ navigation }) => {
     switch (buttonName) {
       case "GetLoan":
         console.log("Get Loan button pressed");
-        navigation.navigate("Home"); // Use React Navigation's navigate function
+        navigation.navigate("Eligibility"); // Use React Navigation's navigate function
         // Handle login logic here
         break;
     }

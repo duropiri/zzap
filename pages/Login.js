@@ -9,7 +9,7 @@ const Login = ({ navigation }) => {
     switch (buttonName) {
       case "login":
         console.log("Login button pressed");
-        navigation.navigate("Eligibility"); // Use React Navigation's navigate function
+        navigation.navigate("Loans"); // Use React Navigation's navigate function
         // Handle login logic here
         break;
       case "forgotPassword":
