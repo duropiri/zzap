@@ -1,8 +1,8 @@
-import { View, Text } from "react-native";
+import { View, Text, TouchableOpacity } from "react-native";
 import React from "react";
 import Icon from "react-native-vector-icons/FontAwesome";
 
-const LoanCard = ({ loan }) => {
+const LoanCard = ({ loan, onPress }) => {
   // Define a function or a map to get the correct icon name based on the loan category
   const getIconName = (category) => {
     switch (category) {
@@ -17,6 +17,7 @@ const LoanCard = ({ loan }) => {
   };
 
   return (
+    <TouchableOpacity onPress={onPress} className="">
     <View className="m-2 p-4 rounded-lg border border-[#F8BFB2] bg-white flex-1">
       <View className="flex-row justify-between">
         <View className="flex-1">
@@ -50,6 +51,7 @@ const LoanCard = ({ loan }) => {
         </View>
       </View>
     </View>
+    </TouchableOpacity>
   );
 };
 
