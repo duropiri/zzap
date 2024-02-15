@@ -76,7 +76,7 @@ const Loans = ({ navigation }) => {
     <ScrollView className="flex-1 bg-white">
       <View className="p-4 w-full">
         {loans.length > 0 ? (
-          <>
+          <View>
             <FlatList
               data={loans}
               keyExtractor={(item) => item.id}
@@ -91,27 +91,32 @@ const Loans = ({ navigation }) => {
               </TouchableOpacity>
             </View>
             {/* Get New Loan Button */}
-            <View className="flex-1 justify-start items-center w-full my-2">
-              <TouchableOpacity
-                className="bg-[#A761B6] rounded-lg py-2 mb-4 h-12 w-full"
-                onPress={() => handlePress("GetLoan")}
-              >
-                <Text className="text-white text-lg font-bold text-center h-12">
-                  Get New Loan
+            <View>
+              <View className="flex-1 justify-start items-center w-full my-2">
+                <TouchableOpacity
+                  className="bg-[#A761B6] rounded-lg py-2 mb-4 h-12 w-full"
+                  onPress={() => handlePress("GetLoan")}
+                >
+                  <Text className="text-white text-lg font-bold text-center h-12">
+                    Get New Loan
+                  </Text>
+                </TouchableOpacity>
+              </View>
+              <View className="">
+                <Text className="text-2xl font-bold text-start">
+                  Your Loans
                 </Text>
-              </TouchableOpacity>
-            </View>
-
-            <Text className="text-2xl font-bold text-start">Your Loans</Text>
-            <View className="flex-1 flex-row justify-start items-start w-full my-2">
-              <DoughnutChart data={chartData} />
-              <View className="h-full justify-center pl-6">
-                {renderLegend()}
+                <View className="flex-1 flex-row justify-start items-start w-full my-2">
+                  <DoughnutChart data={chartData} />
+                  <View className="h-full justify-center pl-6">
+                    {renderLegend()}
+                  </View>
+                </View>
               </View>
             </View>
-          </>
+          </View>
         ) : (
-          <>
+          <ScrollView>
             <View className="p-4 w-full h-full">
               <View className="h-16 mb-24 px-4"></View>
 
@@ -137,7 +142,7 @@ const Loans = ({ navigation }) => {
                 </TouchableOpacity>
               </View>
             </View>
-          </>
+          </ScrollView>
         )}
       </View>
     </ScrollView>

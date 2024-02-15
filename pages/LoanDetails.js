@@ -3,6 +3,7 @@ import { View, Text, TouchableOpacity, ScrollView } from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome";
 import TransactionList from "../components/TransactionList";
 import LoanDetailsList from "../components/LoanDetailsList";
+import BarChart from "../components/charts/BarChart";
 
 const LoanDetails = ({ navigation, route }) => {
   // Assume loan details are passed via route.params for this example
@@ -25,6 +26,15 @@ const LoanDetails = ({ navigation, route }) => {
   const toggleView = (selectedView) => {
     setView(selectedView);
   };
+
+  const chartData = [
+    { label: "Mon", value: 200, color: "#FF73472E" },
+    { label: "Tue", value: 300, color: "#FF73472E" },
+    { label: "Wed", value: 150, color: "#FF73472E" },
+    { label: "Thu", value: 400, color: "#FF73472E" },
+    { label: "Fri", value: 600, color: "#FF73472E" },
+    // ... other data points
+  ];
 
   // Sample data - this should come from your state or props
   const transactions = [
@@ -119,50 +129,51 @@ const LoanDetails = ({ navigation, route }) => {
 
             <Text className="text-xl font-bold py-4">Account review</Text>
             {/* Insert bar chart component here */}
+            <BarChart data={chartData} />
           </View>
-
-          <View className="flex-row min-h-[40px] w-full mt-4">
-            <View className="min-h-[40px] w-1/2">
-              <TouchableOpacity
-                onPress={() => toggleView("transactionHistory")}
-                className={`${
-                  view === "transactionHistory"
-                    ? "bg-[#A761B6]"
-                    : "border-2 border-[#EDADD3]"
-                } px-6 py-2 h-12 justify-center`}
-              >
-                <Text
-                  className={`${
-                    view === "transactionHistory" ? "text-white" : "text-black"
-                  } font-semibold text-sm text-center`}
-                >
-                  Transaction history
-                </Text>
-              </TouchableOpacity>
-            </View>
-            <View className="min-h-[40px] w-1/2">
-              <TouchableOpacity
-                onPress={() => toggleView("loanDetails")}
-                className={`${
-                  view === "loanDetails"
-                    ? "bg-[#A761B6]"
-                    : "border-2 border-[#EDADD3]"
-                } px-6 py-2 h-12 justify-center`}
-              >
-                <Text
-                  className={`${
-                    view === "loanDetails" ? "text-white" : "text-black"
-                  } font-semibold text-sm text-center`}
-                >
-                  Loan details
-                </Text>
-              </TouchableOpacity>
-            </View>
-          </View>
-
-          {/* Conditionally render the content based on the selected view */}
-          <View className="py-2">{renderContent()}</View>
         </View>
+
+        <View className="flex-row min-h-[40px] w-full mt-4">
+          <View className="min-h-[40px] w-1/2">
+            <TouchableOpacity
+              onPress={() => toggleView("transactionHistory")}
+              className={`${
+                view === "transactionHistory"
+                  ? "bg-[#A761B6]"
+                  : "border-2 border-[#EDADD3]"
+              } px-6 py-2 h-12 justify-center`}
+            >
+              <Text
+                className={`${
+                  view === "transactionHistory" ? "text-white" : "text-black"
+                } font-semibold text-sm text-center`}
+              >
+                Transaction history
+              </Text>
+            </TouchableOpacity>
+          </View>
+          <View className="min-h-[40px] w-1/2">
+            <TouchableOpacity
+              onPress={() => toggleView("loanDetails")}
+              className={`${
+                view === "loanDetails"
+                  ? "bg-[#A761B6]"
+                  : "border-2 border-[#EDADD3]"
+              } px-6 py-2 h-12 justify-center`}
+            >
+              <Text
+                className={`${
+                  view === "loanDetails" ? "text-white" : "text-black"
+                } font-semibold text-sm text-center`}
+              >
+                Loan details
+              </Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+
+        {/* Conditionally render the content based on the selected view */}
+        <View className="py-2">{renderContent()}</View>
       </View>
     </ScrollView>
   );

@@ -1,5 +1,6 @@
 import React from "react";
-import { View, Text, FlatList } from "react-native";
+import { View, Text, FlatList, TouchableOpacity } from "react-native";
+import Icon from "react-native-vector-icons/FontAwesome";
 
 const LoanDetailsList = ({ details }) => {
   const renderItem = ({ item }) => (
@@ -10,11 +11,29 @@ const LoanDetailsList = ({ details }) => {
   );
 
   return (
-    <FlatList
-      data={details}
-      renderItem={renderItem}
-      keyExtractor={(item, index) => index.toString()}
-    />
+    <>
+      <FlatList
+        data={details}
+        renderItem={renderItem}
+        keyExtractor={(item, index) => index.toString()}
+      />
+
+      <TouchableOpacity
+        onPress={() => {}}
+        className="flex-1 flex-row justify-start py-3 border-b border-[#D9D9D9] items-center pl-4"
+      >
+        <Icon name={"file"} size={20} color="#FF7347" />
+        <Text className="pl-2 text-black">View Statements</Text>
+      </TouchableOpacity>
+
+      <TouchableOpacity
+        onPress={() => {}}
+        className="flex-1 flex-row justify-start py-3 border-b border-[#D9D9D9] items-center pl-4"
+      >
+        <Icon name={"credit-card"} size={20} color="#FF7347" />
+        <Text className="pl-2 text-black">Manage automatic payments</Text>
+      </TouchableOpacity>
+    </>
   );
 };
 
