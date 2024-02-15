@@ -13,6 +13,7 @@ import CreateEmail from "./pages/CreateEmail";
 import Loans from "./pages/Loans";
 import EligibilityFail from "./pages/EligibilityFail";
 import LoanDetails from "./pages/LoanDetails";
+import PaymentConfirmation from "./pages/PaymentConfirmation";
 
 const Stack = createNativeStackNavigator();
 
@@ -72,6 +73,11 @@ export default function App() {
           <Stack.Screen
             name="LoanDetails"
             component={LoanDetails}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="PaymentConfirmation"
+            component={PaymentConfirmation}
             options={{ headerShown: false }}
           />
         </Stack.Navigator>

@@ -9,7 +9,7 @@ const Header = ({ onMenuPress }) => {
       <TouchableOpacity onPress={onMenuPress}>
         <FontAwesomeIcon icon={faBars} size={24} />
       </TouchableOpacity>
-      <Text className="text-xl font-bold">zzzap</Text>
+      <Text className="text-left text-3xl italic">zzap</Text>
       {/* Placeholder for right side of the header, if needed */}
       <View />
     </View>

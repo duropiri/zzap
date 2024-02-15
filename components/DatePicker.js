@@ -38,7 +38,7 @@ const DatePicker = ({ date, onDateChange, onClear, onSet }) => {
         <View className="min-h-[48px] w-1/2 pl-2">
           <TouchableOpacity
             onPress={onSet}
-            className="bg-[#A761B6] rounded-lg px-6 py-2 h-12"
+            className="bg-[#A761B6] rounded-lg px-6 py-2 mb-4 h-12"
             // style={styles.filledButton}
           >
             <Text

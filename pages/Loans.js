@@ -56,10 +56,6 @@ const Loans = ({ navigation }) => {
         navigation.navigate("Eligibility"); // Use React Navigation's navigate function
         // Handle login logic here
         break;
-      case "LoanDetails":
-        console.log("Loan Details button pressed");
-        navigation.navigate("LoanDetails", { loan: loanData });
-        break;
     }
   };
 

@@ -65,6 +65,7 @@ const ClientInfo = ({ navigation }) => {
     { label: "Biweekly", value: "Biweekly" },
     // ... other options
   ];
+  
   const incomeAmountData = [
     { label: "$0 - $1000", value: "$0 - $1000" },
     { label: "$1001 - $2000", value: "$1001 - $2000" },
@@ -317,13 +318,6 @@ const ClientInfo = ({ navigation }) => {
             </Text>
           </TouchableOpacity>
         </View>
-
-        {/* DatePickerPopup */}
-        {/* <DatePickerPopup
-          visible={isDatePickerVisible}
-          onConfirm={handleDateConfirm}
-          onCancel={() => setDatePickerVisible(false)}
-        /> */}
       </View>
     </ScrollView>
   );
